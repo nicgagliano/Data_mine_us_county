@@ -69,7 +69,14 @@ Then we try to predict these cluster classes using random forest using the SVI (
 
 We vary the number of trees as a hyperparameter to see if we can surpass the default prediction error. The higher number of trees only improve the prediction by a limited amount (to 54%).
 
-Given our model is predictive, looking at the features that were important could give us insights into important features. Over the different cross validations, the consistent features that pop up are household counts themselves, the number of people over 65 or below 18, and surprisingly the % in poverty. The first 2 makes sense given we were dealing with household counts. Having people below 18 would likely point to married households.
+Given our model is predictive, looking at the features that were important could give us insights into important features. Over the different cross validations, the consistent features that pop up are
+- household counts themselves
+- the number of people over age 65
+- the number of people below age 18
+- the % in poverty
+- the number of households where the housing cost is more than 30% of their income 
+
+The first 2 makes sense given we were dealing with household counts. Having people below 18 would likely point to married households.
 
 <image src='R/forest_imp.png'>
 
@@ -77,6 +84,8 @@ Our results over the different cross validation folds are quite robust.
 
 #### Conclusion
 
-Overall, we learned that factors related to poverty and the age distribution seem to be correlated with the change in households led by married and unmarried people.
+Overall, we learned that factors related to poverty, age distribution, and cost of living seem to be correlated with the change in households led by married and unmarried people.
+
+None of these are particularly surprising in hindsight. It would be more enlightening to know if the relative SVI to a county's neighboring counties would be telling of its household counts over time.
 
 {% include lib/mathjax.html %}
