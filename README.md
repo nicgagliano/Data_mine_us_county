@@ -1,4 +1,4 @@
-# Data Mine US Counties
+# Clusting the US Counties Household Counts
 
 This is homework 5 for Applied Machine Learning (Spring 2025) at Columbia University.
 
@@ -8,6 +8,7 @@ This homework requires you to:
   - This PR should be created under a **new branch**, named after your UNI (i.e. do not push against the main branch).
   - You need to create a new file: `report.md`, `report.ipynb`, OR `report.Rmd` that contains all of the answers to the questions listed below.
   - You will need to make **at least one change** in the existing code either under the `python` or `R` folder. This can be about the logic, the efficiency, or the readability. This should be accompanied with a comment that explains your change. More changes are encouraged but remember that the public can see the changes you've recommended.
+  - On Gradescope, please just enter the link to your github pull request.
 
 
 ## Questions your report should answer:
