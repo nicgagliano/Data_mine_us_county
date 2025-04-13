@@ -27,11 +27,12 @@ The social vulnerability index contains metrics on socioeconomic status, househo
 
 <image src='svi_overview.png'>
 
-The changes in households are inferred from the American Community Survey (5 year), specifically `B11003`. We focus only on the counts for households led by married couples and unmarried singles (2 separate counts). One could imagine the trade-off between these households as an indication of changing social structure in the county. An example is the changing household counts for SF.
+The changes in households are inferred from the American Community Survey (5 year), specifically `B11003`. We focus only on the counts for households led by married couples and unmarried singles (2 separate counts). One could imagine the trade-off between these households as an indication of changing social structure in the county. We show the data for San Francisco as an example.
 
 <image src='R/sf_eg.png'>
 
 Features for both household counts:
+
 - The recent change in household counts will be inferred by fitting a best fit curve to the household counts then calculating the implied slope.
 - The acceleration of household counts can be similarly derived as above but using the 2nd derivative.
 - An indicator whether the implied slope **never** changed signs since 2009 to 2023.
@@ -40,11 +41,13 @@ Features for both household counts:
 
 The best fit curve is calculated by regressing the counts over time up to a cubic polynomial then the smallest degree polynomial with $$R^2>0.6$$ will be called the best fit curve (since higher polynomials always produce a higher $$R^2$$ value). Cases that never achieve the $$0.6$$ threshold will be considered too noisy for us to infer a reasonable slope or acceleration for those counties.
 
+Here are some examples of household counts that did not reach the 0.6 threshold.
+
 <image src='R/look_at_bad_fits.png'>
 
 We cluster the counties based on the normalized features listed above (5 features per count so 10 features total) with the exception for the best fit curve (remains -1 and 1). We evaluate the slope and acceleration at 2022.
 
-By using k-means clustering, we see 5 clusters as being optimal (see below). But this generated a cluster with a single county, Los Angeles, CA. This is clearly an outlier situation so we removed it and fit a 4 cluster k-means.
+By using k-means clustering, we see 5 clusters as being optimal (see below). But this generated a cluster with a single county, Los Angeles, CA. This is clearly an outlier situation so we removed it and fit a 4 cluster k-means (see `R/cluster.R`).
 
 <image src='R/kmeans_btwss_by_k_with_LA.png'>
 
@@ -56,11 +59,24 @@ Cluster 1
 Cluster 2
 - <image src='R/eg_cluster2_5_curve.png'>
 
-Cluster 3
+Cluster 3 - 
 - <image src='R/eg_cluster3_5_curve.png'>
 
-Cluster 4
+Cluster 4 - curves that don't match
 - <image src='R/eg_cluster4_5_curve.png'>
 
+Then we try to predict these cluster classes using random forest using the SVI (see `R/model.R` for details). The cross validation shows that the prediction error is around 52%, a much higher value than random guessing.
+
+We vary the number of trees as a hyperparameter to see if we can surpass the default prediction error. The higher number of trees only improve the prediction by a limited amount (to 54%).
+
+Given our model is predictive, looking at the features that were important could give us insights into important features. Over the different cross validations, the consistent features that pop up are household counts themselves, the number of people over 65 or below 18, and surprisingly the % in poverty. The first 2 makes sense given we were dealing with household counts. Having people below 18 would likely point to married households.
+
+<image src='R/forest_imp.png'>
+
+Our results over the different cross validation folds are quite robust.
+
+#### Conclusion
+
+Overall, we learned that factors related to poverty and the age distribution seem to be correlated with the change in households led by married and unmarried people.
 
 {% include lib/mathjax.html %}
