@@ -5,7 +5,7 @@ This is homework 5 for Applied Machine Learning (Spring 2025) at Columbia Univer
 This homework requires you to:
 
 - Make a single pull request (PR) against this repository as your submission, this PR should satisfy the following:
-  - This PR should be created under a **new branch**, named after your UNI (i.e. do not push against the main branch).
+  - This PR should be created under a **new branch**, named after your UNI (i.e. do not push against the main branch). See some [git basics](https://leewtai.github.io/setup/git_for_beginniners) here.
   - You need to create a new file: `report.md`, `report.ipynb`, OR `report.Rmd` that contains all of the answers to the questions listed below.
   - You will need to make **at least one change** in the existing code either under the `python` or `R` folder. This can be about the logic, the efficiency, or the readability. This should be accompanied with a comment that explains your change. More changes are encouraged but remember that the public can see the changes you've recommended.
   - On Gradescope, please just enter the link to your github pull request.
